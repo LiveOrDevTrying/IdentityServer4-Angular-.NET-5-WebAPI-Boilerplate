@@ -1,0 +1,192 @@
+2020-01-12 12:59:52.102 -08:00 [INF] Starting IdentityServer4 version 3.1.0.0
+2020-01-12 12:59:52.128 -08:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2020-01-12 12:59:52.128 -08:00 [DBG] Using Identity.Application as default ASP.NET Core scheme for authentication
+2020-01-12 12:59:52.129 -08:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2020-01-12 12:59:52.129 -08:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2020-01-12 12:59:52.129 -08:00 [DBG] Using Identity.Application as default ASP.NET Core scheme for challenge
+2020-01-12 12:59:52.129 -08:00 [DBG] Using Identity.Application as default ASP.NET Core scheme for forbid
+2020-01-12 12:59:52.306 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration from origin: http://localhost:4200
+2020-01-12 12:59:52.351 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 12:59:52.355 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 12:59:52.369 -08:00 [DBG] Login Url: /Account/Login
+2020-01-12 12:59:52.369 -08:00 [DBG] Login Return Url Parameter: ReturnUrl
+2020-01-12 12:59:52.369 -08:00 [DBG] Logout Url: /Account/Logout
+2020-01-12 12:59:52.369 -08:00 [DBG] ConsentUrl Url: /consent
+2020-01-12 12:59:52.369 -08:00 [DBG] Consent Return Url Parameter: returnUrl
+2020-01-12 12:59:52.369 -08:00 [DBG] Error Url: /home/error
+2020-01-12 12:59:52.369 -08:00 [DBG] Error Id Parameter: errorId
+2020-01-12 12:59:52.379 -08:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2020-01-12 12:59:52.389 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryEndpoint
+2020-01-12 12:59:52.389 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2020-01-12 12:59:52.390 -08:00 [DBG] Start discovery request
+2020-01-12 12:59:53.809 -08:00 [DBG] Found ["profile","openid","roles","phs.themonitaur.webapi"] as all scopes in database
+2020-01-12 12:59:53.908 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration/jwks from origin: http://localhost:4200
+2020-01-12 12:59:53.911 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 12:59:53.912 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 12:59:53.913 -08:00 [DBG] Request path /.well-known/openid-configuration/jwks matched to endpoint type Discovery
+2020-01-12 12:59:53.914 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryKeyEndpoint
+2020-01-12 12:59:53.914 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2020-01-12 12:59:53.915 -08:00 [DBG] Start key discovery request
+2020-01-12 12:59:53.960 -08:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2020-01-12 12:59:53.984 -08:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2020-01-12 12:59:53.984 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2020-01-12 12:59:53.986 -08:00 [DBG] Start authorize request
+2020-01-12 12:59:53.990 -08:00 [DBG] No user present in authorize request
+2020-01-12 12:59:53.991 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 12:59:54.219 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 12:59:54.225 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 12:59:54.825 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 12:59:55.363 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 12:59:55.875 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 12:59:56.384 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 12:59:56.390 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 12:59:56.401 -08:00 [DBG] ValidatedAuthorizeRequest
+{"ClientId":"phs.themonitaur.webapp","ClientName":"The Monitaur WebApplication","RedirectUri":"http://localhost:4200","AllowedRedirectUris":["http://localhost:4200"],"SubjectId":"anonymous","ResponseType":"id_token token","ResponseMode":"fragment","GrantType":"implicit","RequestedScopes":"openid profile roles phs.themonitaur.webapi","State":"e3S5-COXSJYvNm1qQ0wbpZ7dfxKkmkPiSDq_83LCLf6y0","UiLocales":null,"Nonce":"e3S5-COXSJYvNm1qQ0wbpZ7dfxKkmkPiSDq_83LCLf6y0","AuthenticationContextReferenceClasses":null,"DisplayMode":null,"PromptMode":null,"MaxAge":null,"LoginHint":null,"SessionId":"","Raw":{"response_type":"id_token token","client_id":"phs.themonitaur.webapp","state":"e3S5-COXSJYvNm1qQ0wbpZ7dfxKkmkPiSDq_83LCLf6y0","redirect_uri":"http://localhost:4200","scope":"openid profile roles phs.themonitaur.webapi","nonce":"e3S5-COXSJYvNm1qQ0wbpZ7dfxKkmkPiSDq_83LCLf6y0"},"$type":"AuthorizeRequestValidationLog"}
+2020-01-12 12:59:56.406 -08:00 [INF] Showing login: User is not authenticated
+2020-01-12 12:59:56.572 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 12:59:57.096 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 12:59:57.097 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 12:59:57.600 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 12:59:58.104 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 12:59:58.609 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 12:59:59.112 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 12:59:59.113 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 12:59:59.639 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 12:59:59.639 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:12:35.765 -08:00 [INF] Starting IdentityServer4 version 3.1.0.0
+2020-01-12 13:12:35.796 -08:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2020-01-12 13:12:35.796 -08:00 [DBG] Using Identity.Application as default ASP.NET Core scheme for authentication
+2020-01-12 13:12:35.796 -08:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-in
+2020-01-12 13:12:35.796 -08:00 [DBG] Using Identity.External as default ASP.NET Core scheme for sign-out
+2020-01-12 13:12:35.797 -08:00 [DBG] Using Identity.Application as default ASP.NET Core scheme for challenge
+2020-01-12 13:12:35.797 -08:00 [DBG] Using Identity.Application as default ASP.NET Core scheme for forbid
+2020-01-12 13:12:35.998 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration from origin: http://localhost:4200
+2020-01-12 13:12:36.041 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 13:12:36.045 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 13:12:36.056 -08:00 [DBG] Login Url: /Account/Login
+2020-01-12 13:12:36.056 -08:00 [DBG] Login Return Url Parameter: ReturnUrl
+2020-01-12 13:12:36.056 -08:00 [DBG] Logout Url: /Account/Logout
+2020-01-12 13:12:36.056 -08:00 [DBG] ConsentUrl Url: /consent
+2020-01-12 13:12:36.056 -08:00 [DBG] Consent Return Url Parameter: returnUrl
+2020-01-12 13:12:36.056 -08:00 [DBG] Error Url: /home/error
+2020-01-12 13:12:36.056 -08:00 [DBG] Error Id Parameter: errorId
+2020-01-12 13:12:36.067 -08:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2020-01-12 13:12:36.071 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryEndpoint
+2020-01-12 13:12:36.071 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2020-01-12 13:12:36.073 -08:00 [DBG] Start discovery request
+2020-01-12 13:12:36.214 -08:00 [DBG] Found ["profile","openid","roles","phs.themonitaur.webapi"] as all scopes in database
+2020-01-12 13:12:36.325 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration/jwks from origin: http://localhost:4200
+2020-01-12 13:12:36.327 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 13:12:36.327 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 13:12:36.341 -08:00 [DBG] Request path /.well-known/openid-configuration/jwks matched to endpoint type Discovery
+2020-01-12 13:12:36.343 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryKeyEndpoint
+2020-01-12 13:12:36.343 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2020-01-12 13:12:36.344 -08:00 [DBG] Start key discovery request
+2020-01-12 13:12:36.391 -08:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2020-01-12 13:12:36.414 -08:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2020-01-12 13:12:36.414 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2020-01-12 13:12:36.416 -08:00 [DBG] Start authorize request
+2020-01-12 13:12:36.422 -08:00 [DBG] No user present in authorize request
+2020-01-12 13:12:36.424 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 13:12:36.569 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:12:36.574 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:12:36.647 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:12:36.689 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:12:36.699 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:12:36.702 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:12:36.707 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 13:12:36.717 -08:00 [DBG] ValidatedAuthorizeRequest
+{"ClientId":"phs.themonitaur.webapp","ClientName":"The Monitaur WebApplication","RedirectUri":"http://localhost:4200","AllowedRedirectUris":["http://localhost:4200"],"SubjectId":"anonymous","ResponseType":"id_token token","ResponseMode":"fragment","GrantType":"implicit","RequestedScopes":"openid profile roles phs.themonitaur.webapi","State":"5HAj3yQY-BMd8iNJdG4uxDnYjdUwUbazooUHntlarpqLv","UiLocales":null,"Nonce":"5HAj3yQY-BMd8iNJdG4uxDnYjdUwUbazooUHntlarpqLv","AuthenticationContextReferenceClasses":null,"DisplayMode":null,"PromptMode":null,"MaxAge":null,"LoginHint":null,"SessionId":"","Raw":{"response_type":"id_token token","client_id":"phs.themonitaur.webapp","state":"5HAj3yQY-BMd8iNJdG4uxDnYjdUwUbazooUHntlarpqLv","redirect_uri":"http://localhost:4200","scope":"openid profile roles phs.themonitaur.webapi","nonce":"5HAj3yQY-BMd8iNJdG4uxDnYjdUwUbazooUHntlarpqLv"},"$type":"AuthorizeRequestValidationLog"}
+2020-01-12 13:12:36.723 -08:00 [INF] Showing login: User is not authenticated
+2020-01-12 13:12:36.874 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 13:12:36.892 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:12:36.893 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:12:36.896 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:12:36.899 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:12:36.902 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:12:36.905 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:12:36.905 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 13:12:36.925 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:12:36.926 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:13:23.148 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration from origin: http://localhost:4200
+2020-01-12 13:13:23.189 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 13:13:23.190 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 13:13:23.191 -08:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2020-01-12 13:13:23.193 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryEndpoint
+2020-01-12 13:13:23.194 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2020-01-12 13:13:23.194 -08:00 [DBG] Start discovery request
+2020-01-12 13:13:23.215 -08:00 [DBG] Found ["profile","openid","roles","phs.themonitaur.webapi"] as all scopes in database
+2020-01-12 13:13:23.225 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration/jwks from origin: http://localhost:4200
+2020-01-12 13:13:23.229 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 13:13:23.235 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 13:13:23.235 -08:00 [DBG] Request path /.well-known/openid-configuration/jwks matched to endpoint type Discovery
+2020-01-12 13:13:23.236 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryKeyEndpoint
+2020-01-12 13:13:23.236 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2020-01-12 13:13:23.236 -08:00 [DBG] Start key discovery request
+2020-01-12 13:13:23.247 -08:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2020-01-12 13:13:23.248 -08:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2020-01-12 13:13:23.248 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2020-01-12 13:13:23.248 -08:00 [DBG] Start authorize request
+2020-01-12 13:13:23.248 -08:00 [DBG] No user present in authorize request
+2020-01-12 13:13:23.248 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 13:13:23.266 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:13:23.266 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:13:23.269 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:23.272 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:23.275 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:23.277 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:23.277 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 13:13:23.278 -08:00 [DBG] ValidatedAuthorizeRequest
+{"ClientId":"phs.themonitaur.webapp","ClientName":"The Monitaur WebApplication","RedirectUri":"http://localhost:4200","AllowedRedirectUris":["http://localhost:4200"],"SubjectId":"anonymous","ResponseType":"id_token token","ResponseMode":"fragment","GrantType":"implicit","RequestedScopes":"openid profile roles phs.themonitaur.webapi","State":"VHYrrw7YSHYbuF_pepar5lI-4fCNo_m4sVIspcBYBdRHU","UiLocales":null,"Nonce":"VHYrrw7YSHYbuF_pepar5lI-4fCNo_m4sVIspcBYBdRHU","AuthenticationContextReferenceClasses":null,"DisplayMode":null,"PromptMode":null,"MaxAge":null,"LoginHint":null,"SessionId":"","Raw":{"response_type":"id_token token","client_id":"phs.themonitaur.webapp","state":"VHYrrw7YSHYbuF_pepar5lI-4fCNo_m4sVIspcBYBdRHU","redirect_uri":"http://localhost:4200","scope":"openid profile roles phs.themonitaur.webapi","nonce":"VHYrrw7YSHYbuF_pepar5lI-4fCNo_m4sVIspcBYBdRHU"},"$type":"AuthorizeRequestValidationLog"}
+2020-01-12 13:13:23.278 -08:00 [INF] Showing login: User is not authenticated
+2020-01-12 13:13:23.306 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 13:13:23.323 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:13:23.323 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:13:23.326 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:23.329 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:23.331 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:23.334 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:23.334 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 13:13:23.348 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:13:23.348 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:13:39.300 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration from origin: http://localhost:4200
+2020-01-12 13:13:39.305 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 13:13:39.305 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 13:13:39.306 -08:00 [DBG] Request path /.well-known/openid-configuration matched to endpoint type Discovery
+2020-01-12 13:13:39.313 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryEndpoint
+2020-01-12 13:13:39.313 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2020-01-12 13:13:39.313 -08:00 [DBG] Start discovery request
+2020-01-12 13:13:39.320 -08:00 [DBG] Found ["profile","openid","roles","phs.themonitaur.webapi"] as all scopes in database
+2020-01-12 13:13:39.342 -08:00 [DBG] CORS request made for path: /.well-known/openid-configuration/jwks from origin: http://localhost:4200
+2020-01-12 13:13:39.346 -08:00 [DBG] Origin http://localhost:4200 is allowed: true
+2020-01-12 13:13:39.346 -08:00 [DBG] CorsPolicyService allowed origin: http://localhost:4200
+2020-01-12 13:13:39.346 -08:00 [DBG] Request path /.well-known/openid-configuration/jwks matched to endpoint type Discovery
+2020-01-12 13:13:39.349 -08:00 [DBG] Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryKeyEndpoint
+2020-01-12 13:13:39.349 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2020-01-12 13:13:39.349 -08:00 [DBG] Start key discovery request
+2020-01-12 13:13:39.361 -08:00 [DBG] Request path /connect/authorize matched to endpoint type Authorize
+2020-01-12 13:13:39.366 -08:00 [DBG] Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+2020-01-12 13:13:39.367 -08:00 [INF] Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+2020-01-12 13:13:39.367 -08:00 [DBG] Start authorize request
+2020-01-12 13:13:39.367 -08:00 [DBG] No user present in authorize request
+2020-01-12 13:13:39.367 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 13:13:39.386 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:13:39.386 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:13:39.389 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:39.391 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:39.394 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:39.397 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:39.397 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 13:13:39.397 -08:00 [DBG] ValidatedAuthorizeRequest
+{"ClientId":"phs.themonitaur.webapp","ClientName":"The Monitaur WebApplication","RedirectUri":"http://localhost:4200","AllowedRedirectUris":["http://localhost:4200"],"SubjectId":"anonymous","ResponseType":"id_token token","ResponseMode":"fragment","GrantType":"implicit","RequestedScopes":"openid profile roles phs.themonitaur.webapi","State":"0DubPW0lO6MWfVxhpU8Eci3KrtHczQ9seqc32uViwe1sH","UiLocales":null,"Nonce":"0DubPW0lO6MWfVxhpU8Eci3KrtHczQ9seqc32uViwe1sH","AuthenticationContextReferenceClasses":null,"DisplayMode":null,"PromptMode":null,"MaxAge":null,"LoginHint":null,"SessionId":"","Raw":{"response_type":"id_token token","client_id":"phs.themonitaur.webapp","state":"0DubPW0lO6MWfVxhpU8Eci3KrtHczQ9seqc32uViwe1sH","redirect_uri":"http://localhost:4200","scope":"openid profile roles phs.themonitaur.webapi","nonce":"0DubPW0lO6MWfVxhpU8Eci3KrtHczQ9seqc32uViwe1sH"},"$type":"AuthorizeRequestValidationLog"}
+2020-01-12 13:13:39.397 -08:00 [INF] Showing login: User is not authenticated
+2020-01-12 13:13:39.422 -08:00 [DBG] Start authorize request protocol validation
+2020-01-12 13:13:39.442 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:13:39.442 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
+2020-01-12 13:13:39.444 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:39.447 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:39.450 -08:00 [DBG] Found ["profile","openid","roles"] identity scopes in database
+2020-01-12 13:13:39.452 -08:00 [DBG] Found ["phs.themonitaur.webapi"] API scopes in database
+2020-01-12 13:13:39.452 -08:00 [DBG] Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+2020-01-12 13:13:39.465 -08:00 [DBG] phs.themonitaur.webapp found in database: true
+2020-01-12 13:13:39.465 -08:00 [DBG] client configuration validation for client phs.themonitaur.webapp succeeded.
