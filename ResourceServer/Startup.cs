@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using IdentityServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Variables;
 
 namespace ResourceServer
 {
@@ -21,23 +21,26 @@ namespace ResourceServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IGlobals, Globals>();
+            var globals = new Globals();
+
             // This is for access tokens
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = Globals.IDENTITYSERVER_URI;
+                    options.Authority = globals.IDENTITYSERVER_HTTPS_URI;
                     options.RequireHttpsMetadata = false;
-                    options.Audience = Globals.API_RESOURCE_SCOPE;
-                })
-            // This is for reference tokens
-                .AddOAuth2Introspection("token", options =>
-                {
-                    options.Authority = Globals.IDENTITYSERVER_URI;
-
-                    // this maps to the API resource name and secret
-                    options.ClientId = Globals.CLIENT_ID;
-                    options.ClientSecret = Globals.CLIENT_SECRET;
+                    options.Audience = globals.API_RESOURCE_NAME;
                 });
+            // This is for reference tokens
+                //.AddOAuth2Introspection("token", options =>
+                //{
+                //    options.Authority = Globals.IDENTITYSERVER_URI;
+
+                //    // this maps to the API resource name and secret
+                //    options.ClientId = Globals.CLIENT_ID;
+                //    options.ClientSecret = Globals.CLIENT_SECRET;
+                //});
 
             services.AddAuthorization();
 
@@ -48,7 +51,7 @@ namespace ResourceServer
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
-                .WithOrigins(Globals.WEBAPP_URI);
+                .WithOrigins(globals.WEBAPP_URI);
             }));
 
             services.AddSwaggerGen(c =>
@@ -85,7 +88,7 @@ namespace ResourceServer
 
             app.UseForwardedHeaders();
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 

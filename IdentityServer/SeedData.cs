@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using Variables;
 
 namespace IdentityServer
 {
@@ -19,7 +20,8 @@ namespace IdentityServer
             PersistedGrantDbContext persistedGrantDbContext, 
             ConfigurationDbContext configurationDbContext, 
             ApplicationDbContext applicationDbContext,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IGlobals globals)
         {
             Console.WriteLine("Migrating and seeding database...");
 
@@ -27,19 +29,19 @@ namespace IdentityServer
             configurationDbContext.Database.Migrate();
             applicationDbContext.Database.Migrate();
 
-            EnsureSeedData(configurationDbContext);
+            EnsureSeedData(configurationDbContext, globals);
 
-            var admin = userManager.FindByNameAsync(Globals.ADMIN_USERNAME).Result;
+            var admin = userManager.FindByNameAsync(globals.ADMIN_USERNAME).Result;
 
             if (admin == null)
             {
                 admin = new ApplicationUser
                 {
-                    UserName = Globals.ADMIN_USERNAME,
-                    Email = Globals.SMS_EMAIL_SENDER_NAME
+                    UserName = globals.ADMIN_USERNAME,
+                    Email = globals.SMS_EMAIL_SENDER_NAME
                 };
 
-                var result = userManager.CreateAsync(admin, Globals.ADMIN_PASSWORD).Result;
+                var result = userManager.CreateAsync(admin, globals.ADMIN_PASSWORD).Result;
 
                 if (!result.Succeeded)
                 {
@@ -48,13 +50,13 @@ namespace IdentityServer
 
                 result = userManager.AddClaimsAsync(admin, new Claim[]
                 {
-                    new Claim(JwtClaimTypes.Name, "Rob Engel"),
-                    new Claim(JwtClaimTypes.GivenName, "Rob"),
-                    new Claim(JwtClaimTypes.FamilyName, "Engel"),
-                    new Claim(JwtClaimTypes.Email, "WebMaster@PixelHorrorStudios.com"),
+                    new Claim(JwtClaimTypes.Name, globals.ADMIN_USER_NAME),
+                    new Claim(JwtClaimTypes.GivenName, globals.ADMIN_USER_GIVEN_NAME),
+                    new Claim(JwtClaimTypes.FamilyName, globals.ADMIN_USER_FAMILY_NAME),
+                    new Claim(JwtClaimTypes.Email, globals.ADMIN_USER_EMAIL),
                     new Claim(JwtClaimTypes.EmailVerified, "true"),
-                    new Claim(JwtClaimTypes.WebSite, "https://www.pixelhorrorstudios.com.com"),
-                    new Claim(JwtClaimTypes.Role, Globals.ADMIN_ROLE),
+                    new Claim(JwtClaimTypes.WebSite, globals.ADMIN_USER_WEBSITE),
+                    new Claim(JwtClaimTypes.Role, globals.ADMIN_ROLE),
                 }).Result;
 
                 if (!result.Succeeded)
@@ -73,9 +75,9 @@ namespace IdentityServer
             Console.WriteLine();
         }
 
-        private static void EnsureSeedData(ConfigurationDbContext context)
+        private static void EnsureSeedData(ConfigurationDbContext context, IGlobals globals)
         {
-            foreach (var client in Config.ApiScopes)
+            foreach (var client in Config.GetApiScopes(globals))
             {
                 if (!context.ApiScopes.Any(s => s.Name == client.Name))
                 {
@@ -84,7 +86,7 @@ namespace IdentityServer
             }
             context.SaveChanges();
 
-            foreach (var client in Config.Clients)
+            foreach (var client in Config.GetClients(globals))
             {
                 if (!context.Clients.Any(s => s.ClientId == client.ClientId))
                 {
@@ -93,7 +95,7 @@ namespace IdentityServer
             }
             context.SaveChanges();
 
-            foreach (var identityResource in Config.IdentityResources)
+            foreach (var identityResource in Config.GetIdentityResources(globals))
             {
                 if (!context.IdentityResources.Any(s => s.Name == identityResource.Name))
                 {
@@ -102,7 +104,7 @@ namespace IdentityServer
             }
             context.SaveChanges();
 
-            foreach (var apiResource in Config.ApiResources)
+            foreach (var apiResource in Config.GetApiResources(globals))
             {
                 if (!context.ApiResources.Any(s => s.Name == apiResource.Name))
                 {

@@ -3,7 +3,6 @@
 using IdentityServer.Data;
 using IdentityServer.Models;
 using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using Variables;
 
 namespace IdentityServer
 {
@@ -30,10 +30,13 @@ namespace IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IGlobals, Globals>();
+            var globals = new Globals();
+
              var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Globals.CONNECTION_STRING_IDENTITY));
+                options.UseSqlServer(globals.CONNECTION_STRING_IDENTITY));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -51,7 +54,7 @@ namespace IdentityServer
             // Cors is handled by Client configuration
 
             // Uncomment if you would like auto redirection after logout enabled
-            AccountOptions.AutomaticRedirectAfterSignOut = true;
+            //AccountOptions.AutomaticRedirectAfterSignOut = true;
 
             var builder = services.AddIdentityServer(options =>
             {
@@ -60,7 +63,7 @@ namespace IdentityServer
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
                 // Override this if forwarding headers are unique
-                //options.IssuerUri = Globals.IDENTITYSERVER_URI;
+                //options.IssuerUri = globals.IDENTITYSERVER_URI;
 
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
@@ -70,14 +73,14 @@ namespace IdentityServer
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseSqlServer(Globals.CONNECTION_STRING_IDENTITY,
+                        b.UseSqlServer(globals.CONNECTION_STRING_IDENTITY,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 // this adds the operational data from DB (codes, tokens, consents)
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseSqlServer(Globals.CONNECTION_STRING_IDENTITY,
+                        b.UseSqlServer(globals.CONNECTION_STRING_IDENTITY,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
 
                     options.EnableTokenCleanup = true;
@@ -90,7 +93,8 @@ namespace IdentityServer
             }
             else
             {
-                // Required for development! - Make sure to add cert.pfx into the wwwroot folder
+                // ** IMPORTANT **
+                // Required for Production! - Make sure to add cert.pfx into the wwwroot folder
                 var filename = Path.Combine(Environment.WebRootPath, "cert.pfx");
 
                 if (!File.Exists(filename))
@@ -98,11 +102,12 @@ namespace IdentityServer
                     throw new FileNotFoundException("Signing Certificate is missing!");
                 }
 
-                var cert = new X509Certificate2(filename, Globals.CERTIFICATE_PASSWORD);
+                var cert = new X509Certificate2(filename, globals.CERTIFICATE_PASSWORD);
                 builder.AddSigningCredential(cert);
             }
 
             // Uncomment for requested 3rd party auth
+            // May not need SignInScheme if cookie is not desired (and login required on each visit of IdentityServer)
             //services.AddAuthentication()
             //    .AddGoogle(options =>
             //    {
@@ -140,7 +145,8 @@ namespace IdentityServer
             PersistedGrantDbContext persistedGrantDbContext,
             ConfigurationDbContext configurationDbContext,
             ApplicationDbContext applicationDbContext,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IGlobals globals)
         {
             if (Environment.IsDevelopment())
             {
@@ -151,12 +157,22 @@ namespace IdentityServer
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            SeedData.EnsureSeedData(persistedGrantDbContext, configurationDbContext, applicationDbContext, userManager);
+            SeedData.EnsureSeedData(persistedGrantDbContext, configurationDbContext, applicationDbContext, userManager, globals);
 
             app.UseForwardedHeaders();
-            app.UseHttpsRedirection();
+
+            // ** IMPORTANT **
+            // If using Http for IdentityServer (SSL terminated before Asp.NET), SameSiteMode.Strict or SameSiteMode.Lax MUST be set or 
+            // the IdentityServer will not redirect aftert login.
+            //app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict });
+
+            // This can be uncommented if running SSL termination at the Asp.NET app.
+            //app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
             app.UseIdentityServer();
+
             app.UseRouting();
 
             // Cors is handled by Client configuration
