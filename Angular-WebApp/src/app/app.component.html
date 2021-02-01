@@ -1,0 +1,8 @@
+<div *ngIf="isAuthenticated">
+  <button [routerLink]="['/data']" class="btn btn-primary">Get Data from WebAPI</button>
+  <button (click)="logout()" class="btn btn-primary">Log Out</button>
+  <h1>Welcome to your Angular Application!</h1>
+  <p>access token: {{accessToken}}</p>
+</div>
+
+<router-outlet></router-outlet>
