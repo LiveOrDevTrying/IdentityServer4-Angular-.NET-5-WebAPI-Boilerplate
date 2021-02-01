@@ -16,7 +16,7 @@ namespace Variables
         public string API_RESOURCE_SCOPE { get; set; } = "api.resource.scope";
 
         // Connection string for SQL server
-        public string CONNECTION_STRING_IDENTITY { get; set; } = "Server=PHS-SQL-DEV;Database=IS4;Trusted_Connection=false;User Id=sa;Password=Password1!;MultipleActiveResultSets=true";
+        public string CONNECTION_STRING_IDENTITY { get; set; } = "Server=;Database=;Trusted_Connection=false;User Id=;Password=;MultipleActiveResultSets=true";
 
         public string IDENTITYSERVER_HTTP_URI { get; set; } = "http://localhost:5000";
         public string IDENTITYSERVER_HTTPS_URI { get; set; } = "https://localhost:5001";
