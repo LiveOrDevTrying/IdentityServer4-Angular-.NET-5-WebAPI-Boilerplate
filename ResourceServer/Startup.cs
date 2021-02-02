@@ -39,7 +39,7 @@ namespace ResourceServer
 
                 //    // this maps to the API resource name and secret
                 //    options.ClientId = Globals.CLIENT_ID;
-                //    options.ClientSecret = Globals.CLIENT_SECRET;
+                //    options.ClientSecret = Globals.API_RESOURCE_SECRET;
                 //});
 
             services.AddAuthorization();

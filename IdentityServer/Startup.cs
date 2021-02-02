@@ -62,8 +62,8 @@ namespace IdentityServer
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-                // Override this if forwarding headers are unique
-                //options.IssuerUri = globals.IDENTITYSERVER_URI;
+                // Override this if forwarding headers are unique pattern
+                // options.IssuerUri = globals.IDENTITYSERVER_HTTPS_URI;
 
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;

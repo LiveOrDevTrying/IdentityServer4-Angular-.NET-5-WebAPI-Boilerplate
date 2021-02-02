@@ -12,6 +12,7 @@ namespace Variables
         public string CERTIFICATE_PASSWORD { get; set; } // Password for the cer or pfx certificate included in the wwwRoot folder for IdentityServer
 
         public string API_RESOURCE_NAME { get; set; } = "api.resource";
+        //public string API_RESOURCE_SECRET { get; set; }
         public string API_RESOURCE_SCOPE { get; set; } = "api.resource.scope";
         public string[] WEBAPI_REQUESTED_SCOPES { get; set; } = { "openid", "profile", "roles", "api.resource.scope" };
 
@@ -25,7 +26,7 @@ namespace Variables
         public string WEBAPI_HTTPS_URI { get; set; } = "https://localhost:5003";
 
         public string ADMIN_USERNAME { get; set; } = "admin";
-        public string ADMIN_PASSWORD { get; set; } = "Password1!";
+        public string ADMIN_PASSWORD { get; set; }
 
         // These are Default Claims for the Admin User
         public string ADMIN_USER_FULL_NAME { get; set; } = "Rob Engel";

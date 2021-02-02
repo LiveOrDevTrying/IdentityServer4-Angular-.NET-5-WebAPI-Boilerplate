@@ -70,6 +70,7 @@ namespace IdentityServer
                     },
                     EnableLocalLogin = true,
                     ClientUri = globals.CLIENT_URI,
+                    // AccessTokenType = AccessTokenType.Reference
                 },
             };
         }

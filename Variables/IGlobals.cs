@@ -11,6 +11,7 @@
         string CERTIFICATE_PASSWORD { get; set; }
         
         string API_RESOURCE_NAME { get; set; }
+        //string API_RESOURCE_SECRET { get; set; }
         string API_RESOURCE_SCOPE { get; set; }
         string[] WEBAPI_REQUESTED_SCOPES { get; set; }
 
