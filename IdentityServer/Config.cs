@@ -4,6 +4,7 @@ using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
+using System.Linq;
 using Variables;
 
 namespace IdentityServer
@@ -31,7 +32,7 @@ namespace IdentityServer
                     //{
                     //    new Secret(globals.API_RESOURCE_SECRET.Sha256())
                     //},
-                    Scopes = new List<string> { "openid", "profile", "roles", globals.API_RESOURCE_SCOPE }
+                    Scopes = globals.WEBAPI_REQUESTED_SCOPES.ToList()
                 }
             };
         }
@@ -57,7 +58,7 @@ namespace IdentityServer
                     RedirectUris = { globals.CLIENT_REDIRECT_URI },
                     PostLogoutRedirectUris = { globals.CLIENT_POST_LOGOUT_REDIRECT_URI },
                     // LogoUri = "",
-                    AllowedCorsOrigins = { globals.CLIENT_ALLOWED_CORS_ORIGIN },
+                    AllowedCorsOrigins = globals.CLIENT_ALLOWED_CORS_ORIGINS,
                     RequireConsent = false,
                     AllowAccessTokensViaBrowser = true,
                     AllowedScopes =

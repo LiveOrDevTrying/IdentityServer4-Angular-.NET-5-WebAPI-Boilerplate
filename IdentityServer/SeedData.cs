@@ -38,7 +38,7 @@ namespace IdentityServer
                 admin = new ApplicationUser
                 {
                     UserName = globals.ADMIN_USERNAME,
-                    Email = globals.SMS_EMAIL_SENDER_NAME
+                    Email = globals.ADMIN_USER_EMAIL
                 };
 
                 var result = userManager.CreateAsync(admin, globals.ADMIN_PASSWORD).Result;
@@ -50,7 +50,7 @@ namespace IdentityServer
 
                 result = userManager.AddClaimsAsync(admin, new Claim[]
                 {
-                    new Claim(JwtClaimTypes.Name, globals.ADMIN_USER_NAME),
+                    new Claim(JwtClaimTypes.Name, globals.ADMIN_USER_FULL_NAME),
                     new Claim(JwtClaimTypes.GivenName, globals.ADMIN_USER_GIVEN_NAME),
                     new Claim(JwtClaimTypes.FamilyName, globals.ADMIN_USER_FAMILY_NAME),
                     new Claim(JwtClaimTypes.Email, globals.ADMIN_USER_EMAIL),

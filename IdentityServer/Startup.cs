@@ -36,7 +36,7 @@ namespace IdentityServer
              var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(globals.CONNECTION_STRING_IDENTITY));
+                options.UseSqlServer(globals.CONNECTION_STRING));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -73,14 +73,14 @@ namespace IdentityServer
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseSqlServer(globals.CONNECTION_STRING_IDENTITY,
+                        b.UseSqlServer(globals.CONNECTION_STRING,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 // this adds the operational data from DB (codes, tokens, consents)
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseSqlServer(globals.CONNECTION_STRING_IDENTITY,
+                        b.UseSqlServer(globals.CONNECTION_STRING,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
 
                     options.EnableTokenCleanup = true;
@@ -95,6 +95,7 @@ namespace IdentityServer
             {
                 // ** IMPORTANT **
                 // Required for Production! - Make sure to add cert.pfx into the wwwroot folder
+                // If running in Http (not recommended for production), comment out this entire block!
                 var filename = Path.Combine(Environment.WebRootPath, "cert.pfx");
 
                 if (!File.Exists(filename))
