@@ -1,4 +1,4 @@
-# **IdentityServer4-Angular-CLI-.NET-5-WebAPI-Boilerplate**<!-- omit in toc -->
+# **Boilerplate for: [Asp.NET 5 IdentityServer4](https://github.com/IdentityServer/IdentityServer4), [Angular CLI](https://cli.angular.io/), and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis)**<!-- omit in toc -->
 This project is a boilerplate for [Asp.NET 5 IdentityServer4](https://github.com/IdentityServer/IdentityServer4), [Angular CLI](https://cli.angular.io/), and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis). The included [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server is dependent on [Entity Framework](https://github.com/dotnet/efcore), [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-2019), and the [Asp.NET Identity System](https://github.com/dotnet/AspNetCore), although these dependencies can be swapped for custom services / alternative database services if desired. The project comes pre-configured with an [implicit flow client](https://tools.ietf.org/html/rfc6749#section-4.2) that is configured to the provided [Angular CLI](https://cli.angular.io/) webapp via [Open ID Connect (OIDC)](https://openid.net/connect/) using the [npm packages](https://www.npmjs.com/) [angular-oauth2-oidc](https://www.npmjs.com/package/angular-oauth2-oidc) and [angular-oauth2-oidcs-jwks](https://www.npmjs.com/package/angular-oauth2-oidc-jwks). The [Angular CLI](https://cli.angular.io/) project is empty aside from these dependencies, the example login logic, and 1 example call to the protected Resource WebAPI server.
 
 * The [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server (`IdentityServer.csproj`) is configured to run in development at the following 2 URIs:
@@ -16,7 +16,7 @@ This project is a boilerplate for [Asp.NET 5 IdentityServer4](https://github.com
 1. First, [set the Globals.cs variables](#set-globals.cs-variables).
 2. Next, [set the Angular CLI webapp variables](#set-the-angular-cli-webapp-variables).
 3. Configure desired [3rd Party Authentication](#configure-for-3rd-party-auth).
-4. Configure the projects for either [https](#to-configure-for-https) (**recommended**) or [http](#to-configure-for-http).
+4. Configure for either [https](#to-configure-for-https) (**recommended**) or [http](#to-configure-for-http).
 5. Set any [additional variables](#additional-settings).
 6. Start the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server to auto-create / migrate your database specified in the **Connection_String** value in **Globals.cs**. Next start the [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis). Run `ng serve` from the command line in the Angular-WebApp folder to start the development [Angular CLI](https://cli.angular.io/) webapp. Your boilerplate is now complete!
 ---
@@ -33,19 +33,19 @@ This project is a boilerplate for [Asp.NET 5 IdentityServer4](https://github.com
 ---
 ## **Set Globals.cs Variables**
 Open the Visual Studio solution, find the **Variables** project, and set the required **Globals.cs** variables for your environment. These variables include:
-  * ***Required Variables***
-    * **Client_Id** - A unique identifier for your [implicit client](https://tools.ietf.org/html/rfc6749#section-4.2). More information regarding Client_id selection is available in [Section 2.2 of the RFC](https://tools.ietf.org/html/rfc6749#section-2.2).
+  * ***Required variables***
+    * **Client_Id** - A unique identifier for your [implicit client](https://tools.ietf.org/html/rfc6749#section-4.2). More information regarding `Client_id` selection is available in [Section 2.2 of the RFC](https://tools.ietf.org/html/rfc6749#section-2.2).
     * **Api_Resource_Name** - The name of the Resource Server which will be validated as the Issuer in the `UseJWTBearer()` call in **Startup.cs** `ConfigureServices()` of the Resource Server WebAPI project.
-    ``` c#
-      // This is for access tokens
-      services.AddAuthentication("Bearer")
-          .AddJwtBearer("Bearer", options =>
-          {
-              options.Authority = globals.IDENTITYSERVER_HTTPS_URI;
-              options.RequireHttpsMetadata = false;
-              options.Audience = globals.API_RESOURCE_NAME;
-          });
-    ```
+      ``` c#
+        // This is for access tokens
+        services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = globals.IDENTITYSERVER_HTTPS_URI;
+                options.RequireHttpsMetadata = false;
+                options.Audience = globals.API_RESOURCE_NAME;
+            });
+      ```
     * **Api_Resource_Scope** - A [scope](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) registered to the [implicit client](https://tools.ietf.org/html/rfc6749#section-4.2) in the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server database that a Resource Server can request.
     * **Connection_String** - A [SQL server connection string](https://docs.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring?view=dotnet-plat-ext-5.0) to your [SQL Server](https://hub.docker.com/_/microsoft-mssql-server) instance to store the database. An example template connection string is below:
       * `Server=;Database=;Trusted_Connection=false;User Id=;Password=;MultipleActiveResultSets=true`
@@ -56,9 +56,9 @@ Open the Visual Studio solution, find the **Variables** project, and set the req
     * **Client_Uri** - The Uri for the [implicit client](https://tools.ietf.org/html/rfc6749#section-4.2) (the [Angular CLI](https://cli.angular.io/) webapp). Defaults to `localhost:4200`.
     * **Client_Redirect_Uri** - The Uri the browser will be redirected to after a successful login. Defaults to `http://localhost:4200`.
     * **Client_Post_Logout_Redirect_Uri** - The Uri the browser will be redirected to after a successful logout. Defaults to `http://localhost:4200`.
-    * **Client_Allowed_Cors_Origins** - An array of strings containing valid origin Uris from which to request authorization from the IdentityServer Defaults to string[] { `http://localhost:4200` }.
+    * **Client_Allowed_Cors_Origins** - An array of strings containing valid origin Uris from which to request authorization from the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server. Defaults to string[] { `http://localhost:4200` }.
   * ***Optional admin user / claims variables that can be specified***
-    * **Admin_Username** - The username of the Admin user. Defaults to 'admin'.
+    * **Admin_Username** - The username of the Admin user. Defaults to `admin`.
     * **Admin_User_Full_Name** - The full name of the Admin User.
     * **Admin_User_Given_Name** - The given (first) name of the Admin user.
     * **Admin_User_Family_Name** - The family (last) name of the Admin user.
@@ -73,11 +73,11 @@ Open the Visual Studio solution, find the **Variables** project, and set the req
 ---
 ## **Set the [Angular CLI](https://cli.angular.io/) Webapp Variables**
 Open the [Angular CLI](https://cli.angular.io/) webapp project and navigate to src -> app -> services -> `globals.service.ts`. Set the required variables for your environment which include:
-  * ***Required Variables***
+  * ***Required variables***
     * **Client_Id** - The unique identifier for your [implicit client](https://tools.ietf.org/html/rfc6749#section-4.2). This should match the value specified in **Globals.cs** above.
     * **Client_Scopes** - Space-deliminated list of scopes requested by the [Angular CLI](https://cli.angular.io/) webapp. Be sure to include `openid` (required as this boilerplate uses [OIDC](https://openid.net/connect/) to connect to the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server) and the `Api_Resource_Scope` value specified in **Globals.cs** above. `Roles` have been included as an additional identity resource, and `profile` is a [standard claim for retrieving profile information](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
       * e.g. `openid profile roles api.resource.scope`
-  * ***Other fields that can be changed if the hosting Uris are modified include:***
+  * ***Other variables that can be changed if the hosting Uris are modified***
     * **IdentityServer_Http_Uri** - The Uri where the development [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server is hosted over http. Defaults to http://localhost:5000.
     * **IdentityServer_Https_Uri** - The Uri where the development [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server is hosted over https. Defaults to https://localhost:5001.
     * **WebAPI_Http_Uri** - The Uri where the development [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis) is hosted over http. Defaults to http://localhost:5002.
@@ -87,7 +87,7 @@ Open the [Angular CLI](https://cli.angular.io/) webapp project and navigate to s
     * **WebApp_Post_Logout_Redirect_Uri** - The Uri where the development [Angular CLI](https://cli.angular.io/) webapp will be redirected to after a successful logout. Defaults to http://localhost:4200.
 ---
 ## **Configure for 3rd Party Auth**
-If you are using multiple 3rd party providers, make sure to only call `services.AddAuthentication()` once and chain your add provider calls together.
+If you are using multiple 3rd party providers, make sure to call `services.AddAuthentication()` once and chain your provider calls together like below:
   
   ``` c#
     services.AddAuthentication()
@@ -119,9 +119,9 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           });
       ```
 
-    * In production, you will need to change these URIs to match the domain / Uri where the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis) are hosted.
+    * In production, you will need to change these Uris to match the domain / Uri where the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis) are hosted.
   * **Facebook**
-    * Login to the [Facebook Developer Portal](https://developers.facebook.com/) and create a new app. Add in the specified URIs such as the app domain (`localhost` for development), privacy uri, and terms of service uri. On the left under products, click on **Facebook Login** -> **Settings**. Make sure `Client OAuth Login` and `WebOAuth Login` are enabled and optionally enabled `Enforce Https` (if your [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server is being hosted on SSL). Add in the `Valid OAuth Redirect URIs` (e.g. for development, http://localhost:5000/signin-facebook or https://localhost:5001/signin-facebook). Under **Settings** -> **Basic**, make note of the `app Id` and `app secret` - you will need these in the next step.
+    * Login to the [Facebook Developer Portal](https://developers.facebook.com/) and create a new app. Add in the specified Uris such as the app domain (`localhost` for development), privacy Uri, and terms of service Uri. On the left under products, click on **Facebook Login** -> **Settings**. Make sure `Client OAuth Login` and `WebOAuth Login` are enabled and optionally enable `Enforce Https` (if your [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server is being hosted on SSL). Add in the `Valid OAuth Redirect URIs` (e.g. for development, http://localhost:5000/signin-facebook or https://localhost:5001/signin-facebook). Under **Settings** -> **Basic**, make note of the `app Id` and `app secret` - you will need these in the next step.
     * In the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server project **Startup.cs** `ConfigureServices()` method, uncomment the following lines and add in the `app id` (as **Client Id**) and `app secret` (as **Client Secret**) you retrieved in the previous step:
 
       ``` c#
@@ -133,9 +133,9 @@ If you are using multiple 3rd party providers, make sure to only call `services.
               options.ClientSecret = "";
           });
       ```
-
+    * In production, you will need to change these Uris to match the domain / Uri where the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis) are hosted.
   * **Twitter**
-    * Login to the [Twitter Developer Portal](https://developer.twitter.com/) and create a new project and a new app in the project. Under the details for the app, add in under `callback urls` the callback Uri for your [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server (e.g. for development, http://localhost:5000/signin-twitter or https://localhost:5001/signin-twitter). Click on `Keys and Token` under the title of the app on the App details page, and under `Consumer Keys`, create a new `API Key & Secret`. Make note of the `api key` and `app secret` - you will need these in the next step.
+    * Login to the [Twitter Developer Portal](https://developer.twitter.com/) and create a new project and a new app in the project. Under the details for the app, add in under `callback urls` the appropriate Uri for your [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server (e.g. for development, http://localhost:5000/signin-twitter or https://localhost:5001/signin-twitter). Click on `Keys and Token` under the title of the app on the App details page, and under `Consumer Keys`, create a new `API Key & Secret`. Make note of the `api key` and `app secret` - you will need these in the next step.
     * In the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server project **Startup.cs** `ConfigureServices()` method, uncomment the following lines and add in the `api key` (as **Consumer Key**) and `api secret` (as **Client Secret**) you retrieved in the previous step:
 
       ``` c#
@@ -147,6 +147,8 @@ If you are using multiple 3rd party providers, make sure to only call `services.
               options.ConsumerSecret = "";
           });
       ```
+
+      * In production, you will need to change these Uris to match the domain / Uri where the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis) are hosted.
 
   * **Twitch**
     * Login to the [Twitch Developer Portal](https://dev.twitch.tv/) and create a new application. Specify the category of the application as `Website integration`, and add in the appropriate `OAuth Redirect URIs` (e.g. for development, http://localhost:5000/signin-twitch or https://localhost:5001/signin-twitch). Make note of the `Client Id` and `Client Secret` - you will need these in the next step.
@@ -161,9 +163,9 @@ If you are using multiple 3rd party providers, make sure to only call `services.
               options.ClientSecret = "";
           });
       ```
-
+    * In production, you will need to change these Uris to match the domain / Uri where the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis) are hosted.
   * **Microsoft**
-    * Login to [Azure portal - App Registrations](https://go.microsoft.com/fwlink/?linkid=2083908) and create a new app registration. Specify the app registration name and add the appropraite `Redirect Uri` (e.g. set it as `Web`, and for development, the uri is either http://localhost:5000/signin-microsoft or https://localhost:5001/signin-microsoft). Click `Register`. Make note of the `Application (client) ID` - you will need this in the next step. On the left, click on `Certificates & secrets`. Under `Client Secrets`, add a new `Client secret` and take note of the value - you will need this in the next step.
+    * Login to [Azure portal - App Registrations](https://go.microsoft.com/fwlink/?linkid=2083908) and create a new app registration. Specify the app registration name and add the appropriate `Redirect Uri` (e.g. set it as `Web`, and for development, the Uri is either http://localhost:5000/signin-microsoft or https://localhost:5001/signin-microsoft). Click `Register`. Make note of the `Application (client) ID` - you will need this in the next step. On the left, click on `Certificates & secrets`. Under `Client Secrets`, add a new `Client secret` and take note of the value - you will need this in the next step.
     * In the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server project **Startup.cs** `ConfigureServices()` method, uncomment the following lines and add in the `Client Id` and `Client Secret` you retrieved in the previous step:
 
       ``` c#
@@ -176,12 +178,13 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           });
       ```
 
+    * In production, you will need to change these Uris to match the domain / Uri where the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server and [Asp.NET 5 WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis) are hosted.
 ---
 ## **Configure for Https**
 1. **Setup Signing Certificate**
-    * Copy a `.pfx certificate` into the wwwroot folder called `cert.pfx` from a certified CA for your desired domain for the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server. You will need to export this certificate as a .pfx certificate with a private key that matches the key specified in **Globals.cs**. If you do not have an SSL certificate for your domain, a free one can be obtained from [Let's Encrypt](https://letsencrypt.org/). After obtaining a certificate, you will need to export it with a private key (preferrably in the .pfx format).
+    * Copy a `.pfx certificate` into the wwwroot folder called `cert.pfx` from a known certified authority (CA) for your desired domain for the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server. You will need to export this certificate as a .pfx certificate with a private key that matches the key specified in **Globals.cs**. If you do not have an SSL certificate for your domain, a free one can be obtained from [Let's Encrypt](https://letsencrypt.org/). After obtaining a certificate, you will need to export it with a private key (preferrably in the .pfx format).
     
-    > **When the IdentityServer is used in production, the signing SSL certificate will need to be included in the IdentityServer wwwroot called `cert.pfx`.**
+    > **When the IdentityServer is used in production, the signing SSL certificate will need to be included in the IdentityServer wwwroot called `cert.pfx` unless you change the signing certificate logic (below).**
     
     * Copy your `cert.pfx` into the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server wwwroot folder.
     * You can modify the certificate logic to fit your needs (i.e. .cer certificate, different name, etc). This logic is located in [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server project **Startup.cs** `ConfigureServices` (approximately lines 90 - 107):
@@ -221,9 +224,9 @@ If you are using multiple 3rd party providers, make sure to only call `services.
       ```
 
 3. **Verify URIs point to Https**
-    * By default, all URIs in the solution will point to HTTPS endpoints. If these have changed but you wish to re-enable HTTPS, the following locations should be checked:
+    * By default, all Uris in the solution will point to Https endpoints. If these have changed but you wish to re-enable Https, the following locations should be checked:
 
-      * In the Angular CLI webapp, go to src -> app -> **app.component.ts**. At line approximately 21, change the issuer to the https endpoint:
+      * In the [Angular CLI](https://cli.angular.io/) webapp, go to src -> app -> `app.component.ts`. At line approximately 21, change the `issuer` to the https endpoint:
 
         ``` ts
           authConfig: AuthConfig = {
@@ -235,7 +238,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           }
         ```
 
-      * In the Angular CLI webapp, go to src -> app -> **app.component.ts**. At line approximately 18, change the webapi_http endpoint to https:
+      * In the [Angular CLI](https://cli.angular.io/) webapp, go to src -> app -> `app.component.ts`. At line approximately 18, change the webapi_http endpoint to https:
 
         ``` ts
           requestWeatherForecast() {
@@ -246,7 +249,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           }
         ```
 
-      * In ResourceServer **Startup.cs** `ConfigureServices()`, change options.Authority = globals.IDENTITY_SERVERHTTPS_URI.
+      * In ResourceServer **Startup.cs** `ConfigureServices()`, change `options.Authority = globals.IDENTITYSERVER_HTTPS_URI`.
 
         ``` c#
           .AddJwtBearer("Bearer", options =>
@@ -262,7 +265,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
 1. **Disable Signing Certificate**
     * [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) requires a TLS / SSL connection - however, you can terminate the SSL connection before the [Asp.NET app](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-5.0) and pass requests from a reverse proxy to an unsecured port bound to the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server.
     
-    > In production, you will still need to include a .pfx SSL certificate with private key called `cert.pfx` in the wwwroot folder. You can remove this requirement by commenting / removing the following lines from IdentityServer Startup.cs in ConfigureServices (approximately lines 90 - 107):
+    > In production, you will still need to include a .pfx SSL certificate with private key called `cert.pfx` in the wwwroot folder. You can remove this requirement by commenting / removing the following lines from [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server **Startup.cs** in `ConfigureServices()` (approximately lines 90 - 107):
 
       ``` c#
           if (Environment.IsDevelopment())
@@ -286,10 +289,10 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           }
       ```
 
-2. **Change URIs to Http**
-    * By default, all URIs in the solution will point to HTTPS endpoints. If you wish to change to http, the following locations should be checked:
+2. **Change Uris to Http**
+    * By default, all Uris in the solution will point to Https endpoints. If you wish to change to Http, the following locations should be checked:
 
-      * In the Angular CLI webapp, go to src -> app -> **app.component.ts**. At line approximately 21, change the issuer to the http endpoint:
+      * In the [Angular CLI](https://cli.angular.io/) webapp, go to src -> app -> `app.component.ts. At line approximately 21, change the `issuer` to the Http endpoint:
 
         ``` ts
           authConfig: AuthConfig = {
@@ -301,7 +304,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           }
         ```
 
-      * In the Angular CLI webapp, go to src -> app -> **app.component.ts**. At line approximately 18, change the webapi_httpS endpoint to http:
+      * In the [Angular CLI](https://cli.angular.io/) webapp, go to src -> app -> `app.component.ts`. At line approximately 18, change the webapi_https endpoint to http:
 
         ``` ts
           requestWeatherForecast() {
@@ -312,7 +315,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           }
         ```
 
-      * In ResourceServer **Startup.cs** `ConfigureServices()`, change options.Authority = globals.IDENTITYSERVER_HTTP_URI.
+      * In ResourceServer **Startup.cs** `ConfigureServices()`, change `options.Authority = globals.IDENTITYSERVER_HTTP_URI`.
 
         ``` c#
           .AddJwtBearer("Bearer", options =>
@@ -324,7 +327,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
         ```
 
 3. **FOR DEVELOPMENT USING HTTP**
-    * In the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server **Startup.cs** `Configure()`, uncomment (approximately line 167) `app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict })`. This is required to store unsecured cookies and redirect correctly from the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server after a successful login. 
+    * In the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server **Startup.cs** `Configure()`, uncomment (approximately line 167) `app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict })`. This is required to store unsecured cookies and redirect correctly from the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server after a successful login on http. 
     > **In production, SSL is required (but can be terminated before the [Asp.NET app](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-5.0)) and Cookies will always be secured. This line should be commented out / removed for production.**
   
       ``` c#
@@ -333,9 +336,9 @@ If you are using multiple 3rd party providers, make sure to only call `services.
 ---
 ## **Additional Settings**
 ### **Reference Tokens**
-  * If you would like to use reference tokens instead of bearer tokens, you will need to change the client.AccessTokenType and add an ApiSecret to the ApiResource in the IdentityServer4 server Config.cs. More information can be found at the [IdentityServer4 reference documentation](https://identityserver4.readthedocs.io/en/latest/topics/reference_tokens.html). 
-  * This boilerplate includes commented out code that can be used to change to reference tokens. The commented code sections are:
-    * IdentityServer **Config.cs** `GetClients()`, `AccessTokenType` needs to be changed to `AccessTokenType.Reference`.
+  * If you would like to use `reference tokens` instead of `bearer tokens`, you will need to change the `client.AccessTokenType` and add an `ApiSecret` to the `ApiResource` in the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server **Config.cs**.
+  * This boilerplate includes commented out code that can be used to change to `reference tokens`. The commented code sections are:
+    * [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server **Config.cs** `GetClients()`, `AccessTokenType` needs to be changed to `AccessTokenType.Reference`.
 
       ``` c#
         return new Client[]
@@ -366,7 +369,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
         };
       ```
 
-    * IdentityServer **Config.cs** `GetApiResources()`, ApiResource `ApiSecrets` need to be uncommented.
+    * [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server **Config.cs** `GetApiResources()`, the ApiResource `ApiSecrets` needs to be uncommented.
 
       ``` c#
         return new List<ApiResource>
@@ -383,7 +386,7 @@ If you are using multiple 3rd party providers, make sure to only call `services.
         };
       ```
 
-    * ResourceServer **Startup.cs** `ConfigureServers()`, `AddOauth2Introspection()` needs to be uncommented. If the Resource Server is only going to support reference tokens, `AddJwtBearer()` can also be be removed.
+    * ResourceServer **Startup.cs** `ConfigureServers()`, `AddOauth2Introspection()` needs to be uncommented. If the Resource Server is only going to support `reference tokens`, `AddJwtBearer()` can also be be removed.
 
       ``` c#
         // This is for access tokens
@@ -405,8 +408,10 @@ If you are using multiple 3rd party providers, make sure to only call `services.
           });
       ```
 
+  * More information can be found at the [IdentityServer4 reference documentation](https://identityserver4.readthedocs.io/en/latest/topics/reference_tokens.html). 
+
 ### **Auto-Redirect After Logout**
-If you would like the IdentityServer to automatically redirect the user after a successful logout back to the specified (and authorized) post logout redirect uri, in IdentityServer **Startup.cs** `ConfigureServices()`, uncomment the line specifying AuthRedirectAfterSignOut = true (approximately line 57):
+If you would like the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server to automatically redirect the user after a successful logout back to a specified (and authorized) post logout redirect uri, in the [IdentityServer4](https://github.com/IdentityServer/IdentityServer4) server **Startup.cs** `ConfigureServices()`, uncomment the line specifying `AuthRedirectAfterSignOut = true` (approximately line 57):
 
   ``` c#
     AccountOptions.AutomaticRedirectAfterSignOut = true;
